@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- classpath:mapper/ProjectMapper.xml -->
+<mapper namespace="cn.tedu.tsms.student.dao.StudentDao">
+
+	<!--查询所有班级名称和id-->
+	<select id="findAllClasses" resultType="cn.tedu.tsms.classes.entity.ClassEntity">
+		select id,class_name from class_table
+	</select>
+	
+	<!-- 查询学员 -->
+	<select id="findAllStudents" resultType="cn.tedu.tsms.student.entity.Student">
+		select * from student_table s
+		<where>
+			<if test="student.studentname!=null and student.studentname!=''">
+				s.studentname like CONCAT("%",#{student.studentname},"%")
+			</if>
+			<if test="student.study_type!=null and student.study_type!=''">
+				and s.study_type=#{student.study_type}
+			</if>
+			<if test="student.class_id!=null and student.class_id!=''">
+				and s.class_id = #{student.class_id}
+			</if>
+			<if test="empStatus!=null and empStatus!=''">
+				and s.id=(select e.student_id from employment_table e
+				where e.employment_status=#{empStatus})
+			</if>
+		</where>
+		order by s.id
+
+		limit #{pageObject.startIndex},#{pageObject.pageSize};
+	</select>
+	<!-- 获得记录总数 -->
+	<select id="getRowCount" resultType="java.lang.Integer">
+		select count(*) from student_table s
+		<where>
+			<if test="student.studentname!=null and student.studentname!=''">
+				s.studentname like CONCAT("%",#{student.studentname},"%")
+			</if>
+			<if test="student.study_type!=null and student.study_type!=''">
+				and s.study_type=#{student.study_type}
+			</if>
+			<if test="student.class_id!=null and student.class_id!=''">
+				and s.class_id = #{student.class_id}
+			</if>
+			<if test="empStatus!=null and empStatus!=''">
+				and s.id=(select e.student_id from employment_table e
+				where e.employment_status=#{empStatus})
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据学生ID查找信息 -->
+	<select id="selectStudentMessageById" parameterType="string"
+		resultType="cn.tedu.tsms.student.entity.Student">
+		select id ,name,class_id as classId from student_table
+		where id=#{id}
+	</select>
+	<!-- 根据班级ID查询班级名称 -->
+	<select id="selectClassNameById" parameterType="cn.tedu.tsms.student.entity.Student">
+		select class_name from class_table where id=#{id}
+	</select>
+
+
+
+</mapper>
