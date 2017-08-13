@@ -1,0 +1,15 @@
+package cn.tedu.vote.dao;
+
+import java.util.List;
+
+import cn.tedu.vote.entity.Options;
+
+public interface OptionDao {
+	int insertOption(Options option);
+	
+	List<Options> findById(int id);
+	
+	int deleteOptions(int id);
+	
+	int doVote(int id);
+}
