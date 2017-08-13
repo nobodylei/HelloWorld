@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.vote.dao.VoteDao"> 
+    
+    <insert id="insertObject" parameterType="cn.tedu.vote.entity.Vote">
+        insert into db_vote (
+        id,theme,img,option_states,createTime,endTime,vote_states
+        )values(
+        #{id},#{theme},#{img},#{option_states},NOW(),#{endTime},#{vote_states}
+        )
+    </insert>
+    
+    <select id="findObjects" resultType="cn.tedu.vote.entity.Vote">
+    	select * from db_vote;
+    </select>
+   
+   <select id="findById" parameterType="java.lang.Integer" resultType="cn.tedu.vote.entity.Vote">
+   		select * from db_vote where id=#{id}
+   </select>
+   
+   <delete id="deleteObjectById" parameterType="java.lang.Integer">
+   		delete from db_vote where id=#{id}
+   </delete>
+    
+</mapper>
