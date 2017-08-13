@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.vote.dao.OptionDao"> 
+    
+    <insert id="insertOption" parameterType="cn.tedu.vote.entity.Options">
+        insert into db_vote_option values(
+        #{id},#{voteId},#{option},0
+        )
+    </insert>
+    
+    <select id="findById" resultType="cn.tedu.vote.entity.Options" parameterType="java.lang.Integer">
+    	select * from db_vote_option where voteId=#{id}
+    </select>
+   	
+   	<delete id="deleteOptions" parameterType="java.lang.Integer">
+   		delete from db_vote_option where voteId=#{id}
+   	</delete>
+    
+    <update id="doVote" parameterType="java.lang.Integer">
+    	update db_vote_option set num=(num+1) where id=#{id}
+    	
+    </update>
+    
+</mapper>
