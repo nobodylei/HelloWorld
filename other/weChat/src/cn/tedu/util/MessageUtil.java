@@ -111,8 +111,7 @@ XStream xstream = new XStream();
 	}
 
 	public static String secondMenu() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("\t\t将进酒\n"
+		StringBuffer sb = new StringBuffer();		sb.append("\t\t将进酒\n"
 				+"\t\t\t\t李白\n"
 				+"君不见黄河之水天上来，\n奔流到海不复回。\n"
 				+"君不见高堂明镜悲白发，\n朝如青丝暮成雪。\n"
@@ -141,9 +140,9 @@ return sb.toString();
 		
 		//服务地址
 		try {
-			String key = "bdae886baa234e17bdba421783d178de";
+			String key = "bdae886baa234e17bdba421783d178d";
 			String info = URLEncoder.encode(content, "utf-8");
-			String userid = "120137";
+			String userid = "12013";
 			url = new URL("http://www.tuling123.com/openapi/api?key=" + key + "&info=" + info +"&userid="+userid+";");
 			
 			connection = (HttpURLConnection)url.openConnection();
